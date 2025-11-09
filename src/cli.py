@@ -140,15 +140,15 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="gemini-pro",
-        help="Model to use (default: gemini-pro for Gemini, gpt-3.5-turbo for OpenAI)"
+        default="claude-3-haiku-20240307",
+        help="Model to use (default: claude-3-haiku-20240307 for Claude, gemini-pro for Gemini, gpt-3.5-turbo for OpenAI)"
     )
     parser.add_argument(
         "--provider",
         type=str,
-        default="gemini",
-        choices=["gemini", "openai"],
-        help="LLM provider to use (default: gemini)"
+        default="claude",
+        choices=["claude", "gemini", "openai"],
+        help="LLM provider to use (default: claude)"
     )
 
     args = parser.parse_args()
@@ -195,9 +195,12 @@ def main():
         print(f"\nConfiguration Error: {str(e)}")
         print("\nPlease ensure:")
         print("  1. You have created a .env file in the project root")
-        print("  2. For Gemini (default): Add GOOGLE_API_KEY=your_api_key_here")
+        print("  2. For Claude (default): Add ANTHROPIC_API_KEY=sk-ant-your_key_here")
+        print("     Get a key at: https://console.anthropic.com/")
+        print("     Note: When using Claude, you also need OPENAI_API_KEY for embeddings")
+        print("  3. For Gemini: Add GOOGLE_API_KEY=your_api_key_here")
         print("     Get a FREE key at: https://makersuite.google.com/app/apikey")
-        print("  3. For OpenAI: Add OPENAI_API_KEY=your_api_key_here")
+        print("  4. For OpenAI: Add OPENAI_API_KEY=your_api_key_here")
         print("     Get a key at: https://platform.openai.com/api-keys")
         sys.exit(1)
 

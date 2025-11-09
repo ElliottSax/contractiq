@@ -15,6 +15,7 @@ from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
+from langchain_anthropic import ChatAnthropic
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
@@ -41,9 +42,9 @@ class HealthcareContractRAG:
         data_dir: str = "data",
         chunk_size: int = 500,
         chunk_overlap: int = 50,
-        model_name: str = "gemini-pro",
+        model_name: str = "claude-3-haiku-20240307",
         temperature: float = 0,
-        provider: str = "gemini"  # "gemini" or "openai"
+        provider: str = "claude"  # "claude", "gemini", or "openai"
     ):
         """
         Initialize the Healthcare Contract RAG system.
@@ -52,9 +53,9 @@ class HealthcareContractRAG:
             data_dir: Directory containing PDF documents
             chunk_size: Size of text chunks for splitting
             chunk_overlap: Overlap between consecutive chunks
-            model_name: Model to use for QA (gemini-pro, gpt-3.5-turbo, etc.)
+            model_name: Model to use for QA (claude-3-haiku-20240307, gemini-pro, gpt-3.5-turbo)
             temperature: Temperature for LLM responses (0 = deterministic)
-            provider: LLM provider - "gemini" or "openai"
+            provider: LLM provider - "claude", "gemini", or "openai"
         """
         # Load environment variables
         load_dotenv()
@@ -62,7 +63,15 @@ class HealthcareContractRAG:
         self.provider = provider.lower()
 
         # Validate API key based on provider
-        if self.provider == "gemini":
+        if self.provider == "claude":
+            self.api_key = os.getenv("ANTHROPIC_API_KEY")
+            if not self.api_key:
+                raise ValueError(
+                    "ANTHROPIC_API_KEY not found in environment variables. "
+                    "Please create a .env file with your Anthropic API key. "
+                    "Get one at: https://console.anthropic.com/"
+                )
+        elif self.provider == "gemini":
             self.api_key = os.getenv("GOOGLE_API_KEY")
             if not self.api_key:
                 raise ValueError(
@@ -78,7 +87,7 @@ class HealthcareContractRAG:
                     "Please create a .env file with your OpenAI API key."
                 )
         else:
-            raise ValueError(f"Unsupported provider: {provider}. Use 'gemini' or 'openai'.")
+            raise ValueError(f"Unsupported provider: {provider}. Use 'claude', 'gemini', or 'openai'.")
 
         self.data_dir = Path(data_dir)
         self.chunk_size = chunk_size
@@ -187,6 +196,16 @@ class HealthcareContractRAG:
                     model="models/embedding-001",
                     google_api_key=self.api_key
                 )
+            elif self.provider == "claude":
+                # Claude uses OpenAI embeddings or alternatives
+                # For now, use OpenAI embeddings (user needs OPENAI_API_KEY for embeddings)
+                openai_key = os.getenv("OPENAI_API_KEY")
+                if not openai_key:
+                    raise ValueError(
+                        "When using Claude, you need OPENAI_API_KEY for embeddings. "
+                        "Add OPENAI_API_KEY to your .env file."
+                    )
+                self.embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
             else:  # openai
                 self.embeddings = OpenAIEmbeddings(
                     openai_api_key=self.api_key
@@ -246,6 +265,11 @@ class HealthcareContractRAG:
                         model="models/embedding-001",
                         google_api_key=self.api_key
                     )
+                elif self.provider == "claude":
+                    openai_key = os.getenv("OPENAI_API_KEY")
+                    if not openai_key:
+                        raise ValueError("When using Claude, you need OPENAI_API_KEY for embeddings.")
+                    self.embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
                 else:  # openai
                     self.embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
 
@@ -299,6 +323,12 @@ Answer: Let me analyze the contract information:"""
                     temperature=self.temperature,
                     google_api_key=self.api_key,
                     convert_system_message_to_human=True
+                )
+            elif self.provider == "claude":
+                llm = ChatAnthropic(
+                    model=self.model_name,
+                    temperature=self.temperature,
+                    anthropic_api_key=self.api_key
                 )
             else:  # openai
                 llm = ChatOpenAI(
