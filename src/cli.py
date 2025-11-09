@@ -140,8 +140,15 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="gpt-3.5-turbo",
-        help="OpenAI model to use (default: gpt-3.5-turbo)"
+        default="gemini-pro",
+        help="Model to use (default: gemini-pro for Gemini, gpt-3.5-turbo for OpenAI)"
+    )
+    parser.add_argument(
+        "--provider",
+        type=str,
+        default="gemini",
+        choices=["gemini", "openai"],
+        help="LLM provider to use (default: gemini)"
     )
 
     args = parser.parse_args()
@@ -151,10 +158,11 @@ def main():
 
     try:
         # Initialize RAG system
-        print("Initializing Healthcare Contract Analysis System...")
+        print(f"Initializing Healthcare Contract Analysis System with {args.provider.upper()}...")
         rag = HealthcareContractRAG(
             data_dir=args.data_dir,
-            model_name=args.model
+            model_name=args.model,
+            provider=args.provider
         )
 
         # Build or load pipeline
@@ -187,7 +195,10 @@ def main():
         print(f"\nConfiguration Error: {str(e)}")
         print("\nPlease ensure:")
         print("  1. You have created a .env file in the project root")
-        print("  2. Your .env file contains: OPENAI_API_KEY=your_api_key_here")
+        print("  2. For Gemini (default): Add GOOGLE_API_KEY=your_api_key_here")
+        print("     Get a FREE key at: https://makersuite.google.com/app/apikey")
+        print("  3. For OpenAI: Add OPENAI_API_KEY=your_api_key_here")
+        print("     Get a key at: https://platform.openai.com/api-keys")
         sys.exit(1)
 
     except Exception as e:

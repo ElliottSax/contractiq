@@ -14,6 +14,7 @@ from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
@@ -40,8 +41,9 @@ class HealthcareContractRAG:
         data_dir: str = "data",
         chunk_size: int = 500,
         chunk_overlap: int = 50,
-        model_name: str = "gpt-3.5-turbo",
-        temperature: float = 0
+        model_name: str = "gemini-pro",
+        temperature: float = 0,
+        provider: str = "gemini"  # "gemini" or "openai"
     ):
         """
         Initialize the Healthcare Contract RAG system.
@@ -50,19 +52,33 @@ class HealthcareContractRAG:
             data_dir: Directory containing PDF documents
             chunk_size: Size of text chunks for splitting
             chunk_overlap: Overlap between consecutive chunks
-            model_name: OpenAI model to use for QA
+            model_name: Model to use for QA (gemini-pro, gpt-3.5-turbo, etc.)
             temperature: Temperature for LLM responses (0 = deterministic)
+            provider: LLM provider - "gemini" or "openai"
         """
         # Load environment variables
         load_dotenv()
 
-        # Validate OpenAI API key
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError(
-                "OPENAI_API_KEY not found in environment variables. "
-                "Please create a .env file with your OpenAI API key."
-            )
+        self.provider = provider.lower()
+
+        # Validate API key based on provider
+        if self.provider == "gemini":
+            self.api_key = os.getenv("GOOGLE_API_KEY")
+            if not self.api_key:
+                raise ValueError(
+                    "GOOGLE_API_KEY not found in environment variables. "
+                    "Please create a .env file with your Google API key. "
+                    "Get one free at: https://makersuite.google.com/app/apikey"
+                )
+        elif self.provider == "openai":
+            self.api_key = os.getenv("OPENAI_API_KEY")
+            if not self.api_key:
+                raise ValueError(
+                    "OPENAI_API_KEY not found in environment variables. "
+                    "Please create a .env file with your OpenAI API key."
+                )
+        else:
+            raise ValueError(f"Unsupported provider: {provider}. Use 'gemini' or 'openai'.")
 
         self.data_dir = Path(data_dir)
         self.chunk_size = chunk_size
@@ -163,12 +179,18 @@ class HealthcareContractRAG:
             FAISS vector store
         """
         try:
-            logger.info("Creating embeddings and building FAISS vector store")
+            logger.info(f"Creating embeddings using {self.provider} and building FAISS vector store")
 
-            # Initialize OpenAI embeddings
-            self.embeddings = OpenAIEmbeddings(
-                openai_api_key=self.api_key
-            )
+            # Initialize embeddings based on provider
+            if self.provider == "gemini":
+                self.embeddings = GoogleGenerativeAIEmbeddings(
+                    model="models/embedding-001",
+                    google_api_key=self.api_key
+                )
+            else:  # openai
+                self.embeddings = OpenAIEmbeddings(
+                    openai_api_key=self.api_key
+                )
 
             # Create FAISS vector store
             self.vectorstore = FAISS.from_documents(
@@ -219,7 +241,13 @@ class HealthcareContractRAG:
 
             # Initialize embeddings if not already done
             if self.embeddings is None:
-                self.embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
+                if self.provider == "gemini":
+                    self.embeddings = GoogleGenerativeAIEmbeddings(
+                        model="models/embedding-001",
+                        google_api_key=self.api_key
+                    )
+                else:  # openai
+                    self.embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
 
             self.vectorstore = FAISS.load_local(
                 str(load_path),
@@ -264,12 +292,20 @@ Answer: Let me analyze the contract information:"""
                 input_variables=["context", "question"]
             )
 
-            # Initialize the language model
-            llm = ChatOpenAI(
-                model_name=self.model_name,
-                temperature=self.temperature,
-                openai_api_key=self.api_key
-            )
+            # Initialize the language model based on provider
+            if self.provider == "gemini":
+                llm = ChatGoogleGenerativeAI(
+                    model=self.model_name,
+                    temperature=self.temperature,
+                    google_api_key=self.api_key,
+                    convert_system_message_to_human=True
+                )
+            else:  # openai
+                llm = ChatOpenAI(
+                    model_name=self.model_name,
+                    temperature=self.temperature,
+                    openai_api_key=self.api_key
+                )
 
             # Create retrieval QA chain
             self.qa_chain = RetrievalQA.from_chain_type(
