@@ -8,6 +8,7 @@ faiss-cpu==1.7.4
 
 # PDF Processing
 pypdf==3.17.4
+reportlab==4.0.7
 
 # Environment Variables
 python-dotenv==1.0.0
@@ -15,5 +16,10 @@ python-dotenv==1.0.0
 # Web Interface
 streamlit==1.29.0
 
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
+
 # Additional utilities
 tiktoken==0.5.2
+plotly==5.18.0
