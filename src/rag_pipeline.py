@@ -22,7 +22,10 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 
 # Import offline embeddings as fallback
-from offline_embeddings import OfflineTfidfEmbeddings
+try:
+    from src.offline_embeddings import OfflineTfidfEmbeddings
+except ImportError:
+    from offline_embeddings import OfflineTfidfEmbeddings
 
 # Configure logging
 logging.basicConfig(

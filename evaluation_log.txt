@@ -1,0 +1,240 @@
+2025-11-11 17:55:55,459 - __main__ - INFO - ======================================================================
+2025-11-11 17:55:55,459 - __main__ - INFO - Healthcare Contract Analysis RAG - RAGAS Evaluation
+2025-11-11 17:55:55,459 - __main__ - INFO - ======================================================================
+2025-11-11 17:55:55,459 - __main__ - INFO - 
+1. Loading test dataset...
+2025-11-11 17:55:55,459 - __main__ - INFO -    Loaded 50 test questions
+2025-11-11 17:55:55,459 - __main__ - INFO -    - calculation: 10 questions
+2025-11-11 17:55:55,459 - __main__ - INFO -    - comparison: 10 questions
+2025-11-11 17:55:55,459 - __main__ - INFO -    - complex: 10 questions
+2025-11-11 17:55:55,459 - __main__ - INFO -    - policy: 10 questions
+2025-11-11 17:55:55,459 - __main__ - INFO -    - rate_lookup: 10 questions
+2025-11-11 17:55:55,460 - __main__ - INFO - 
+2. Initializing RAG system...
+2025-11-11 17:55:55,461 - src.rag_pipeline - INFO - HealthcareContractRAG initialized
+2025-11-11 17:55:55,461 - __main__ - INFO -    Loading existing pipeline...
+2025-11-11 17:55:55,461 - src.rag_pipeline - INFO - Using offline TF-IDF embeddings for loading vector store
+2025-11-11 17:55:55,574 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-11-11 17:55:55,718 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-11-11 17:55:55,727 - src.rag_pipeline - INFO - Vector store loaded from outputs/vectorstore
+2025-11-11 17:55:55,727 - src.rag_pipeline - INFO - Creating QA chain
+2025-11-11 17:55:55,899 - src.rag_pipeline - INFO - QA chain created successfully
+2025-11-11 17:55:55,899 - __main__ - INFO -    RAG system initialized successfully!
+2025-11-11 17:55:55,899 - __main__ - INFO - 
+3. Running queries through RAG system...
+2025-11-11 17:55:55,899 - __main__ - INFO - Running 50 queries through RAG system...
+2025-11-11 17:55:55,900 - __main__ - INFO - Processing question 1/50: What is the reimbursement rate for CPT 99213 according to Un...
+2025-11-11 17:55:55,900 - src.rag_pipeline - INFO - Processing question: What is the reimbursement rate for CPT 99213 according to United Healthcare?
+2025-11-11 17:55:55,902 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,902 - __main__ - ERROR - Error processing question 1: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,902 - __main__ - INFO - Processing question 2/50: How much does Aetna reimburse for CPT 99214?...
+2025-11-11 17:55:55,902 - src.rag_pipeline - INFO - Processing question: How much does Aetna reimburse for CPT 99214?
+2025-11-11 17:55:55,903 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,903 - __main__ - ERROR - Error processing question 2: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,904 - __main__ - INFO - Processing question 3/50: What is Blue Cross's reimbursement rate for CPT 27447?...
+2025-11-11 17:55:55,904 - src.rag_pipeline - INFO - Processing question: What is Blue Cross's reimbursement rate for CPT 27447?
+2025-11-11 17:55:55,905 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,905 - __main__ - ERROR - Error processing question 3: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,905 - __main__ - INFO - Processing question 4/50: What does United Healthcare pay for CPT 99215?...
+2025-11-11 17:55:55,905 - src.rag_pipeline - INFO - Processing question: What does United Healthcare pay for CPT 99215?
+2025-11-11 17:55:55,906 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,906 - __main__ - ERROR - Error processing question 4: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,906 - __main__ - INFO - Processing question 5/50: What is the reimbursement rate for CPT 29881 under Aetna?...
+2025-11-11 17:55:55,906 - src.rag_pipeline - INFO - Processing question: What is the reimbursement rate for CPT 29881 under Aetna?
+2025-11-11 17:55:55,907 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,907 - __main__ - ERROR - Error processing question 5: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,907 - __main__ - INFO - Processing question 6/50: How much does Blue Cross pay for CPT 99213?...
+2025-11-11 17:55:55,907 - src.rag_pipeline - INFO - Processing question: How much does Blue Cross pay for CPT 99213?
+2025-11-11 17:55:55,908 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,908 - __main__ - ERROR - Error processing question 6: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,908 - __main__ - INFO - Processing question 7/50: What is the reimbursement for CPT 73721 under United Healthc...
+2025-11-11 17:55:55,908 - src.rag_pipeline - INFO - Processing question: What is the reimbursement for CPT 73721 under United Healthcare?
+2025-11-11 17:55:55,909 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,909 - __main__ - ERROR - Error processing question 7: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,909 - __main__ - INFO - Processing question 8/50: What does Aetna pay for CPT 99285?...
+2025-11-11 17:55:55,909 - src.rag_pipeline - INFO - Processing question: What does Aetna pay for CPT 99285?
+2025-11-11 17:55:55,910 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,911 - __main__ - ERROR - Error processing question 8: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,911 - __main__ - INFO - Processing question 9/50: What is Blue Cross's rate for CPT 99214?...
+2025-11-11 17:55:55,911 - src.rag_pipeline - INFO - Processing question: What is Blue Cross's rate for CPT 99214?
+2025-11-11 17:55:55,912 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,912 - __main__ - ERROR - Error processing question 9: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,912 - __main__ - INFO - Processing question 10/50: How much does United Healthcare reimburse for CPT 29881?...
+2025-11-11 17:55:55,912 - src.rag_pipeline - INFO - Processing question: How much does United Healthcare reimburse for CPT 29881?
+2025-11-11 17:55:55,913 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,913 - __main__ - ERROR - Error processing question 10: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,913 - __main__ - INFO - Processing question 11/50: Which payer offers the highest reimbursement for CPT 99213?...
+2025-11-11 17:55:55,913 - src.rag_pipeline - INFO - Processing question: Which payer offers the highest reimbursement for CPT 99213?
+2025-11-11 17:55:55,914 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,914 - __main__ - ERROR - Error processing question 11: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,914 - __main__ - INFO - Processing question 12/50: Compare the reimbursement rates for CPT 27447 across all thr...
+2025-11-11 17:55:55,914 - src.rag_pipeline - INFO - Processing question: Compare the reimbursement rates for CPT 27447 across all three payers.
+2025-11-11 17:55:55,915 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,915 - __main__ - ERROR - Error processing question 12: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,915 - __main__ - INFO - Processing question 13/50: Which payer has the best rate for CPT 99214?...
+2025-11-11 17:55:55,915 - src.rag_pipeline - INFO - Processing question: Which payer has the best rate for CPT 99214?
+2025-11-11 17:55:55,916 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,916 - __main__ - ERROR - Error processing question 13: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,916 - __main__ - INFO - Processing question 14/50: What is the difference in reimbursement for CPT 99285 betwee...
+2025-11-11 17:55:55,916 - src.rag_pipeline - INFO - Processing question: What is the difference in reimbursement for CPT 99285 between United Healthcare and Aetna?
+2025-11-11 17:55:55,917 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,917 - __main__ - ERROR - Error processing question 14: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,917 - __main__ - INFO - Processing question 15/50: Which payer offers the lowest rate for CPT 73721?...
+2025-11-11 17:55:55,917 - src.rag_pipeline - INFO - Processing question: Which payer offers the lowest rate for CPT 73721?
+2025-11-11 17:55:55,918 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,918 - __main__ - ERROR - Error processing question 15: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,918 - __main__ - INFO - Processing question 16/50: Compare payment timeframes across all three payers....
+2025-11-11 17:55:55,918 - src.rag_pipeline - INFO - Processing question: Compare payment timeframes across all three payers.
+2025-11-11 17:55:55,919 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,919 - __main__ - ERROR - Error processing question 16: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,919 - __main__ - INFO - Processing question 17/50: Which payer has the fastest payment terms?...
+2025-11-11 17:55:55,919 - src.rag_pipeline - INFO - Processing question: Which payer has the fastest payment terms?
+2025-11-11 17:55:55,920 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,920 - __main__ - ERROR - Error processing question 17: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,920 - __main__ - INFO - Processing question 18/50: What is the average reimbursement rate for CPT 99213 across ...
+2025-11-11 17:55:55,920 - src.rag_pipeline - INFO - Processing question: What is the average reimbursement rate for CPT 99213 across all payers?
+2025-11-11 17:55:55,921 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,921 - __main__ - ERROR - Error processing question 18: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,921 - __main__ - INFO - Processing question 19/50: Which payer pays the most for knee surgery (CPT 27447)?...
+2025-11-11 17:55:55,921 - src.rag_pipeline - INFO - Processing question: Which payer pays the most for knee surgery (CPT 27447)?
+2025-11-11 17:55:55,922 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,922 - __main__ - ERROR - Error processing question 19: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,922 - __main__ - INFO - Processing question 20/50: Compare the rates for CPT 29881 between United Healthcare an...
+2025-11-11 17:55:55,922 - src.rag_pipeline - INFO - Processing question: Compare the rates for CPT 29881 between United Healthcare and Aetna.
+2025-11-11 17:55:55,923 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,923 - __main__ - ERROR - Error processing question 20: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,923 - __main__ - INFO - Processing question 21/50: What are the payment terms for United Healthcare?...
+2025-11-11 17:55:55,923 - src.rag_pipeline - INFO - Processing question: What are the payment terms for United Healthcare?
+2025-11-11 17:55:55,924 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,924 - __main__ - ERROR - Error processing question 21: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,924 - __main__ - INFO - Processing question 22/50: What is the contract effective date for the Aetna agreement?...
+2025-11-11 17:55:55,924 - src.rag_pipeline - INFO - Processing question: What is the contract effective date for the Aetna agreement?
+2025-11-11 17:55:55,925 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,925 - __main__ - ERROR - Error processing question 22: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,925 - __main__ - INFO - Processing question 23/50: What is Blue Cross's policy on prior authorization?...
+2025-11-11 17:55:55,925 - src.rag_pipeline - INFO - Processing question: What is Blue Cross's policy on prior authorization?
+2025-11-11 17:55:55,926 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,926 - __main__ - ERROR - Error processing question 23: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,926 - __main__ - INFO - Processing question 24/50: What happens if a claim is denied by United Healthcare?...
+2025-11-11 17:55:55,926 - src.rag_pipeline - INFO - Processing question: What happens if a claim is denied by United Healthcare?
+2025-11-11 17:55:55,927 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,927 - __main__ - ERROR - Error processing question 24: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,928 - __main__ - INFO - Processing question 25/50: What is Aetna's policy on claim submission deadlines?...
+2025-11-11 17:55:55,928 - src.rag_pipeline - INFO - Processing question: What is Aetna's policy on claim submission deadlines?
+2025-11-11 17:55:55,928 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,929 - __main__ - ERROR - Error processing question 25: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,929 - __main__ - INFO - Processing question 26/50: When does the United Healthcare contract expire?...
+2025-11-11 17:55:55,929 - src.rag_pipeline - INFO - Processing question: When does the United Healthcare contract expire?
+2025-11-11 17:55:55,930 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,930 - __main__ - ERROR - Error processing question 26: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,930 - __main__ - INFO - Processing question 27/50: What is Blue Cross's claim submission deadline?...
+2025-11-11 17:55:55,930 - src.rag_pipeline - INFO - Processing question: What is Blue Cross's claim submission deadline?
+2025-11-11 17:55:55,931 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,931 - __main__ - ERROR - Error processing question 27: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,931 - __main__ - INFO - Processing question 28/50: What is the termination notice period for the Aetna contract...
+2025-11-11 17:55:55,931 - src.rag_pipeline - INFO - Processing question: What is the termination notice period for the Aetna contract?
+2025-11-11 17:55:55,932 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,932 - __main__ - ERROR - Error processing question 28: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,932 - __main__ - INFO - Processing question 29/50: Does United Healthcare require prior authorization for MRI p...
+2025-11-11 17:55:55,932 - src.rag_pipeline - INFO - Processing question: Does United Healthcare require prior authorization for MRI procedures?
+2025-11-11 17:55:55,933 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,933 - __main__ - ERROR - Error processing question 29: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,933 - __main__ - INFO - Processing question 30/50: What is Blue Cross's policy on timely payment?...
+2025-11-11 17:55:55,933 - src.rag_pipeline - INFO - Processing question: What is Blue Cross's policy on timely payment?
+2025-11-11 17:55:55,934 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,934 - __main__ - ERROR - Error processing question 30: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,934 - __main__ - INFO - Processing question 31/50: If a provider performs 10 CPT 99213 visits with United Healt...
+2025-11-11 17:55:55,934 - src.rag_pipeline - INFO - Processing question: If a provider performs 10 CPT 99213 visits with United Healthcare, what is the total expected reimbursement?
+2025-11-11 17:55:55,935 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,935 - __main__ - ERROR - Error processing question 31: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,935 - __main__ - INFO - Processing question 32/50: What is the revenue difference between performing a CPT 2744...
+2025-11-11 17:55:55,935 - src.rag_pipeline - INFO - Processing question: What is the revenue difference between performing a CPT 27447 procedure with Blue Cross versus Aetna?
+2025-11-11 17:55:55,936 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,936 - __main__ - ERROR - Error processing question 32: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,936 - __main__ - INFO - Processing question 33/50: If a provider bills United Healthcare for CPT 99214 but rece...
+2025-11-11 17:55:55,936 - src.rag_pipeline - INFO - Processing question: If a provider bills United Healthcare for CPT 99214 but receives only $100, what is the underpayment amount?
+2025-11-11 17:55:55,937 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,937 - __main__ - ERROR - Error processing question 33: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,937 - __main__ - INFO - Processing question 34/50: What is the total reimbursement for performing CPT 99213, CP...
+2025-11-11 17:55:55,937 - src.rag_pipeline - INFO - Processing question: What is the total reimbursement for performing CPT 99213, CPT 99214, and CPT 99215 with Aetna?
+2025-11-11 17:55:55,938 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,938 - __main__ - ERROR - Error processing question 34: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,938 - __main__ - INFO - Processing question 35/50: How much more does Blue Cross pay for CPT 99214 compared to ...
+2025-11-11 17:55:55,938 - src.rag_pipeline - INFO - Processing question: How much more does Blue Cross pay for CPT 99214 compared to United Healthcare?
+2025-11-11 17:55:55,939 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,939 - __main__ - ERROR - Error processing question 35: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,939 - __main__ - INFO - Processing question 36/50: What is the total expected revenue from performing 5 knee su...
+2025-11-11 17:55:55,939 - src.rag_pipeline - INFO - Processing question: What is the total expected revenue from performing 5 knee surgeries (CPT 27447) with Blue Cross?
+2025-11-11 17:55:55,940 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,940 - __main__ - ERROR - Error processing question 36: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,940 - __main__ - INFO - Processing question 37/50: If Aetna takes 45 days to pay and United Healthcare takes 30...
+2025-11-11 17:55:55,940 - src.rag_pipeline - INFO - Processing question: If Aetna takes 45 days to pay and United Healthcare takes 30 days, what is the payment delay difference?
+2025-11-11 17:55:55,941 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,941 - __main__ - ERROR - Error processing question 37: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,941 - __main__ - INFO - Processing question 38/50: What is the percentage difference between the highest and lo...
+2025-11-11 17:55:55,941 - src.rag_pipeline - INFO - Processing question: What is the percentage difference between the highest and lowest reimbursement rates for CPT 99213?
+2025-11-11 17:55:55,942 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,942 - __main__ - ERROR - Error processing question 38: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,942 - __main__ - INFO - Processing question 39/50: How much would a provider lose by choosing Aetna over Blue C...
+2025-11-11 17:55:55,942 - src.rag_pipeline - INFO - Processing question: How much would a provider lose by choosing Aetna over Blue Cross for 10 knee surgeries (CPT 27447)?
+2025-11-11 17:55:55,943 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,943 - __main__ - ERROR - Error processing question 39: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,943 - __main__ - INFO - Processing question 40/50: What is the combined value of performing CPT 73721, CPT 9928...
+2025-11-11 17:55:55,943 - src.rag_pipeline - INFO - Processing question: What is the combined value of performing CPT 73721, CPT 99285, and CPT 29881 with United Healthcare?
+2025-11-11 17:55:55,944 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,944 - __main__ - ERROR - Error processing question 40: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,944 - __main__ - INFO - Processing question 41/50: Which payer should a provider choose for maximizing revenue ...
+2025-11-11 17:55:55,945 - src.rag_pipeline - INFO - Processing question: Which payer should a provider choose for maximizing revenue on office visits (CPT 99213-99215)?
+2025-11-11 17:55:55,945 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,945 - __main__ - ERROR - Error processing question 41: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,946 - __main__ - INFO - Processing question 42/50: What are the key differences in contract terms between Unite...
+2025-11-11 17:55:55,946 - src.rag_pipeline - INFO - Processing question: What are the key differences in contract terms between United Healthcare and Aetna?
+2025-11-11 17:55:55,947 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,947 - __main__ - ERROR - Error processing question 42: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,947 - __main__ - INFO - Processing question 43/50: If a provider performs a mix of 20 office visits and 2 knee ...
+2025-11-11 17:55:55,947 - src.rag_pipeline - INFO - Processing question: If a provider performs a mix of 20 office visits and 2 knee surgeries monthly, which payer maximizes revenue?
+2025-11-11 17:55:55,948 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,948 - __main__ - ERROR - Error processing question 43: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,948 - __main__ - INFO - Processing question 44/50: What are the prior authorization requirements across all thr...
+2025-11-11 17:55:55,948 - src.rag_pipeline - INFO - Processing question: What are the prior authorization requirements across all three payers?
+2025-11-11 17:55:55,949 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,949 - __main__ - ERROR - Error processing question 44: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,949 - __main__ - INFO - Processing question 45/50: Which payer has the most provider-friendly payment and autho...
+2025-11-11 17:55:55,949 - src.rag_pipeline - INFO - Processing question: Which payer has the most provider-friendly payment and authorization policies?
+2025-11-11 17:55:55,950 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,950 - __main__ - ERROR - Error processing question 45: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,950 - __main__ - INFO - Processing question 46/50: What is the contract number for each payer?...
+2025-11-11 17:55:55,950 - src.rag_pipeline - INFO - Processing question: What is the contract number for each payer?
+2025-11-11 17:55:55,951 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,951 - __main__ - ERROR - Error processing question 46: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,951 - __main__ - INFO - Processing question 47/50: For a high-volume orthopedic practice, which payer offers th...
+2025-11-11 17:55:55,951 - src.rag_pipeline - INFO - Processing question: For a high-volume orthopedic practice, which payer offers the best overall rates?
+2025-11-11 17:55:55,952 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,952 - __main__ - ERROR - Error processing question 47: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,952 - __main__ - INFO - Processing question 48/50: What are the claim appeal timeframes for each payer?...
+2025-11-11 17:55:55,952 - src.rag_pipeline - INFO - Processing question: What are the claim appeal timeframes for each payer?
+2025-11-11 17:55:55,953 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,953 - __main__ - ERROR - Error processing question 48: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,953 - __main__ - INFO - Processing question 49/50: Which CPT codes have the largest rate variance across payers...
+2025-11-11 17:55:55,953 - src.rag_pipeline - INFO - Processing question: Which CPT codes have the largest rate variance across payers?
+2025-11-11 17:55:55,954 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,954 - __main__ - ERROR - Error processing question 49: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,954 - __main__ - INFO - Processing question 50/50: If all contracts expire simultaneously, what is the renewal ...
+2025-11-11 17:55:55,954 - src.rag_pipeline - INFO - Processing question: If all contracts expire simultaneously, what is the renewal consideration period?
+2025-11-11 17:55:55,955 - src.rag_pipeline - ERROR - Error processing question: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,955 - __main__ - ERROR - Error processing question 50: max_df corresponds to < documents than min_df
+2025-11-11 17:55:55,955 - __main__ - INFO -    Completed 50 queries
+2025-11-11 17:55:55,955 - __main__ - INFO - 
+4. Running RAGAS evaluation...
+2025-11-11 17:55:55,955 - __main__ - INFO -    Note: This requires OpenAI API access for evaluation metrics
+2025-11-11 17:55:55,955 - __main__ - INFO -    Evaluation may take several minutes...
+2025-11-11 17:55:56,346 - __main__ - ERROR - RAGAS evaluation failed: module 'pyarrow' has no attribute 'PyExtensionType'
+2025-11-11 17:55:56,346 - __main__ - ERROR - Note: RAGAS requires OpenAI API key for evaluation metrics.
+2025-11-11 17:55:56,347 - __main__ - INFO - 
+5. Generating evaluation report...
+2025-11-11 17:55:56,348 - __main__ - INFO - Evaluation report saved to: evaluation/RAGAS_EVALUATION_REPORT.md
+2025-11-11 17:55:56,348 - __main__ - INFO -    Report saved to: evaluation/RAGAS_EVALUATION_REPORT.md
+2025-11-11 17:55:56,348 - __main__ - INFO - 
+✅ Evaluation complete!
+2025-11-11 17:55:56,348 - __main__ - INFO - 
+View the full report at: evaluation/RAGAS_EVALUATION_REPORT.md
