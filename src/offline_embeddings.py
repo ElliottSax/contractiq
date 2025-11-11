@@ -74,11 +74,20 @@ class OfflineTfidfEmbeddings(Embeddings):
             Embedding as a list of floats
         """
         if not self.is_fitted:
-            # If not fitted yet, fit on the query itself
-            self.vectorizer.fit([text])
-            self.is_fitted = True
+            # If not fitted yet, create a temporary vectorizer with adjusted parameters
+            # for single document (min_df must be 1, max_df must be 1.0 for single doc)
+            temp_vectorizer = TfidfVectorizer(
+                max_features=self.max_features,
+                ngram_range=(1, 2),
+                min_df=1,
+                max_df=1.0,  # Must be 1.0 for single document
+                stop_words='english'
+            )
+            temp_vectorizer.fit([text])
+            tfidf_vector = temp_vectorizer.transform([text])
+            return tfidf_vector.toarray()[0].tolist()
 
-        # Transform the query to TF-IDF vector
+        # Transform the query to TF-IDF vector using fitted vectorizer
         tfidf_vector = self.vectorizer.transform([text])
 
         # Convert to dense and return as list
