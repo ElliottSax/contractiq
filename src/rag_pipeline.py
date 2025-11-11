@@ -21,6 +21,9 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 
+# Import offline embeddings as fallback
+from offline_embeddings import OfflineTfidfEmbeddings
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -190,34 +193,66 @@ class HealthcareContractRAG:
         try:
             logger.info(f"Creating embeddings using {self.provider} and building FAISS vector store")
 
-            # Initialize embeddings based on provider
-            if self.provider == "gemini":
-                self.embeddings = GoogleGenerativeAIEmbeddings(
-                    model="models/embedding-001",
-                    google_api_key=self.api_key
-                )
-            elif self.provider == "claude":
-                # Claude uses OpenAI embeddings or alternatives
-                # For now, use OpenAI embeddings (user needs OPENAI_API_KEY for embeddings)
-                openai_key = os.getenv("OPENAI_API_KEY")
-                if not openai_key:
-                    raise ValueError(
-                        "When using Claude, you need OPENAI_API_KEY for embeddings. "
-                        "Add OPENAI_API_KEY to your .env file."
+            # Try to initialize embeddings based on provider
+            use_offline = False
+            try:
+                if self.provider == "gemini":
+                    self.embeddings = GoogleGenerativeAIEmbeddings(
+                        model="models/embedding-001",
+                        google_api_key=self.api_key
                     )
-                self.embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
-            else:  # openai
-                self.embeddings = OpenAIEmbeddings(
-                    openai_api_key=self.api_key
+                elif self.provider == "claude":
+                    # Claude uses Gemini embeddings (avoids SSL/network issues)
+                    gemini_key = os.getenv("GOOGLE_API_KEY")
+                    if gemini_key:
+                        logger.info("Using Gemini embeddings for Claude provider")
+                        self.embeddings = GoogleGenerativeAIEmbeddings(
+                            model="models/embedding-001",
+                            google_api_key=gemini_key
+                        )
+                    else:
+                        # Fallback to OpenAI if Gemini key not available
+                        openai_key = os.getenv("OPENAI_API_KEY")
+                        if not openai_key:
+                            raise ValueError(
+                                "When using Claude, you need either GOOGLE_API_KEY or OPENAI_API_KEY for embeddings. "
+                                "Add one to your .env file."
+                            )
+                        logger.info("Using OpenAI embeddings for Claude provider")
+                        self.embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
+                else:  # openai
+                    self.embeddings = OpenAIEmbeddings(
+                        openai_api_key=self.api_key
+                    )
+
+                # Try creating vector store with external API embeddings
+                self.vectorstore = FAISS.from_documents(
+                    documents=chunks,
+                    embedding=self.embeddings
                 )
 
-            # Create FAISS vector store
-            self.vectorstore = FAISS.from_documents(
-                documents=chunks,
-                embedding=self.embeddings
-            )
+            except Exception as api_error:
+                error_str = str(api_error).lower()
+                # Check if it's an SSL or network error
+                if any(keyword in error_str for keyword in ['ssl', 'certificate', 'handshake', 'timeout', '503', 'unavailable']):
+                    logger.warning(f"External API embeddings failed due to network/SSL issues: {api_error}")
+                    logger.warning("Falling back to offline TF-IDF embeddings")
+                    use_offline = True
+                else:
+                    # If it's not a network error, re-raise
+                    raise
 
-            logger.info("Vector store created successfully")
+            # If external APIs failed, use offline embeddings
+            if use_offline:
+                self.embeddings = OfflineTfidfEmbeddings()
+                self.vectorstore = FAISS.from_documents(
+                    documents=chunks,
+                    embedding=self.embeddings
+                )
+                logger.info("Vector store created successfully with offline TF-IDF embeddings")
+            else:
+                logger.info("Vector store created successfully with external API embeddings")
+
             return self.vectorstore
 
         except Exception as e:
@@ -259,25 +294,24 @@ class HealthcareContractRAG:
                 raise FileNotFoundError(f"Vector store not found at {load_path}")
 
             # Initialize embeddings if not already done
+            # Use offline TF-IDF embeddings as they work in all environments
             if self.embeddings is None:
-                if self.provider == "gemini":
-                    self.embeddings = GoogleGenerativeAIEmbeddings(
-                        model="models/embedding-001",
-                        google_api_key=self.api_key
-                    )
-                elif self.provider == "claude":
-                    openai_key = os.getenv("OPENAI_API_KEY")
-                    if not openai_key:
-                        raise ValueError("When using Claude, you need OPENAI_API_KEY for embeddings.")
-                    self.embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
-                else:  # openai
-                    self.embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
+                logger.info("Using offline TF-IDF embeddings for loading vector store")
+                self.embeddings = OfflineTfidfEmbeddings()
 
-            self.vectorstore = FAISS.load_local(
-                str(load_path),
-                self.embeddings,
-                allow_dangerous_deserialization=True
-            )
+            # Try loading with the parameter first (newer versions)
+            try:
+                self.vectorstore = FAISS.load_local(
+                    str(load_path),
+                    self.embeddings,
+                    allow_dangerous_deserialization=True
+                )
+            except TypeError:
+                # Fall back to loading without the parameter (older versions)
+                self.vectorstore = FAISS.load_local(
+                    str(load_path),
+                    self.embeddings
+                )
 
             logger.info(f"Vector store loaded from {load_path}")
 
